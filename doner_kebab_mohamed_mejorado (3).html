@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Döner Kebab Mohamed — Edición Maestra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Monoton&family=Poppins:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-dark:#1b120d;
+    --bg-panel:#2a1d15;
+    --bg-panel-light:#3a2a1c;
+    --neon-pink:#ff3864;
+    --neon-gold:#ffd23f;
+    --meat-1:#6b3315;
+    --meat-2:#8b4a22;
+    --meat-3:#b06a35;
+    --meat-4:#d68f4e;
+    --cream:#f4e9d8;
+    --green-fresh:#7cb342;
+    --flame:#ff7b00;
+    --awning-red:#c1272d;
+    --mohamed-skin:#c98a52;
+    --mohamed-apron:var(--green-fresh);
+    --mohamed-hat:var(--cream);
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse at top, #2a1d15 0%, var(--bg-dark) 60%);
+    color:var(--cream);
+    font-family:'Poppins', sans-serif;
+    padding-bottom:40px;
+  }
+
+  .awning{
+    height:26px;
+    background:repeating-linear-gradient(45deg, var(--awning-red) 0 20px, var(--cream) 20px 40px);
+    box-shadow:0 4px 10px rgba(0,0,0,0.5);
+  }
+
+  .neon-header{
+    text-align:center;
+    padding:22px 12px 8px;
+  }
+  .neon-sign{
+    font-family:'Monoton', cursive;
+    font-size:clamp(1.3rem, 5.5vw, 2.6rem);
+    color:var(--neon-pink);
+    text-shadow:0 0 6px var(--neon-pink), 0 0 16px var(--neon-pink), 0 0 34px rgba(255,56,100,0.55);
+    margin:0;
+    letter-spacing:0.02em;
+    animation:neonFlicker 6s infinite;
+  }
+  .neon-name{
+    color:var(--neon-gold);
+    text-shadow:0 0 6px var(--neon-gold), 0 0 16px var(--neon-gold), 0 0 34px rgba(255,210,63,0.55);
+  }
+  .neon-open{
+    font-family:'Space Mono', monospace;
+    color:var(--green-fresh);
+    text-shadow:0 0 6px var(--green-fresh);
+    margin:8px 0 0;
+    letter-spacing:0.25em;
+    font-size:0.75rem;
+    animation:neonFlicker 3.4s infinite;
+  }
+
+  .game{max-width:980px; margin:0 auto; padding:0 14px;}
+
+  .audio-bar{
+    display:flex; gap:10px; justify-content:center; margin:10px 0;
+  }
+  .audio-btn{
+    background:var(--bg-panel); color:var(--cream); border:1px solid #4a2c14;
+    border-radius:20px; padding:6px 14px; font-size:0.75rem; cursor:pointer;
+    font-family:'Space Mono', monospace; transition:all 0.2s;
+  }
+  .audio-btn:hover{border-color:var(--neon-gold); color:var(--neon-gold);}
+  .audio-btn.muted{opacity:0.5; text-decoration:line-through;}
+
+  .stats-bar{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(110px, 1fr)); gap:10px;
+    background:var(--bg-panel);
+    padding:14px 10px;
+    border-radius:14px;
+    margin:18px auto 22px;
+    border:1px solid #4a2c14;
+  }
+  .stat{display:flex; flex-direction:column; align-items:center; min-width:84px;}
+  .stat-label{font-size:0.65rem; opacity:0.65; text-transform:uppercase; letter-spacing:0.06em;}
+  .stat-value{font-family:'Space Mono', monospace; font-size:1.05rem; color:var(--neon-gold); font-weight:700; margin-top:2px;}
+  .stat-value.small{font-size:0.85rem;}
+
+  .shop-floor{
+    display:flex; gap:18px; justify-content:center; align-items:stretch;
+    flex-wrap:wrap; margin-bottom:26px;
+  }
+
+  .mohamed-area{
+    flex:1; min-width:160px; max-width:220px;
+    background:var(--bg-panel);
+    border:1px solid #4a2c14;
+    border-radius:16px;
+    padding:18px 12px;
+    text-align:center;
+  }
+  .avatar{width:120px; margin:0 auto;}
+  .hat{width:84px; height:42px; background:var(--mohamed-hat); border-radius:42px 42px 8px 8px; margin:0 auto; position:relative;}
+  .hat::after{content:''; position:absolute; bottom:-6px; left:-8px; right:-8px; height:12px; background:var(--mohamed-hat); border-radius:6px;}
+  .face{width:76px; height:76px; background:var(--mohamed-skin); border-radius:50%; margin:-2px auto 0; position:relative; box-shadow:inset 0 -10px 14px rgba(0,0,0,0.18);}
+  .eyes{position:absolute; top:26px; left:14px; width:48px; display:flex; justify-content:space-between;}
+  .eyes::before, .eyes::after{content:''; width:7px; height:7px; background:#2a1d15; border-radius:50%;}
+  .mustache{position:absolute; top:42px; left:11px; width:54px; height:12px;}
+  .mustache::before, .mustache::after{content:''; position:absolute; width:27px; height:12px; background:#2a1d15; border-radius:0 0 18px 18px;}
+  .mustache::before{left:0; transform:rotate(15deg); transform-origin:top right;}
+  .mustache::after{right:0; transform:rotate(-15deg); transform-origin:top left;}
+  .smile{position:absolute; top:53px; left:28px; width:20px; height:10px; border-bottom:3px solid #2a1d15; border-radius:0 0 10px 10px;}
+  .apron{width:96px; height:42px; background:var(--mohamed-apron); margin:8px auto 0; border-radius:6px 6px 14px 14px; box-shadow:0 4px 8px rgba(0,0,0,0.3);}
+
+  .speech-bubble{
+    background:var(--cream); color:var(--bg-dark);
+    padding:10px 12px; border-radius:14px; position:relative;
+    margin-top:16px; font-size:0.82rem; min-height:46px;
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    line-height:1.25;
+  }
+  .speech-bubble::after{
+    content:''; position:absolute; top:-9px; left:50%; transform:translateX(-50%);
+    border-width:0 9px 9px 9px; border-style:solid; border-color:transparent transparent var(--cream) transparent;
+  }
+  .speech-bubble.pulse{animation:bubblePulse 0.35s ease-out;}
+
+  .doner-area{
+    flex:1; min-width:200px; max-width:260px;
+    background:var(--bg-panel);
+    border:1px solid #4a2c14;
+    border-radius:16px;
+    padding:28px 16px 16px;
+    text-align:center;
+    position:relative;
+    overflow:visible;
+  }
+  .flames{font-size:28px; filter:drop-shadow(0 0 10px var(--flame)); animation:flameFlicker 0.55s ease-in-out infinite; margin-bottom:-6px;}
+
+  .spit{
+    width:88px; height:200px; margin:6px auto 0;
+    border-radius:44px 44px 18px 18px;
+    background:repeating-linear-gradient(
+      to bottom,
+      var(--meat-2) 0 14px,
+      var(--meat-3) 14px 22px,
+      var(--meat-1) 22px 28px,
+      var(--meat-4) 28px 38px
+    );
+    border:3px solid #4a2c14;
+    box-shadow:0 10px 26px rgba(0,0,0,0.55), inset 0 0 18px rgba(0,0,0,0.4);
+    position:relative;
+    overflow:hidden;
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .spit::before{
+    content:''; position:absolute; top:-26px; left:50%; width:6px; height:26px;
+    background:#8a8a8a; transform:translateX(-50%); border-radius:3px;
+  }
+  .shine{
+    position:absolute; top:0; bottom:0; width:18%; left:-30%;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.32), transparent);
+    animation:spinShine 2.6s linear infinite;
+    pointer-events:none;
+  }
+  .spit:active{transform:scale(0.97);}
+  .spit:focus-visible{outline:3px solid var(--neon-gold); outline-offset:5px;}
+  .spit.bounce{animation:spitBounce 0.35s ease-out;}
+
+  .knife{
+    position:absolute; top:18px; right:18px; font-size:36px;
+    transform:rotate(-30deg) translateX(-18px);
+    filter:drop-shadow(0 4px 6px rgba(0,0,0,0.5));
+    pointer-events:none;
+  }
+  .knife.slice{animation:sliceSwipe 0.3s ease-in-out;}
+
+  .click-hint{font-size:0.72rem; opacity:0.6; margin:12px 0 0;}
+
+  .float-text{
+    position:absolute; font-family:'Space Mono', monospace; font-weight:700;
+    color:var(--neon-gold); pointer-events:none; text-shadow:0 0 6px rgba(0,0,0,0.6);
+    animation:floatUp 0.9s ease-out forwards; transform:translate(-50%,-50%);
+  }
+  .particle{
+    position:absolute; width:6px; height:6px; border-radius:2px; pointer-events:none;
+    animation:particleFall 0.7s ease-in forwards;
+  }
+
+  .order-panel{
+    flex:1 1 280px; min-width:260px; max-width:340px;
+    background:var(--bg-panel);
+    border:1px solid #4a2c14;
+    border-radius:16px;
+    padding:16px;
+  }
+  .order-panel h2{
+    font-size:0.95rem; text-transform:uppercase; letter-spacing:0.06em;
+    color:var(--neon-gold); text-align:center; margin:0 0 12px;
+  }
+  .customer-card{
+    background:var(--bg-panel-light);
+    border-radius:12px; padding:12px; margin-bottom:10px;
+    border-left:4px solid var(--neon-gold);
+  }
+  .customer-card.new{animation:slideIn 0.5s ease-out;}
+  .customer-card.urgent{animation:urgentPulse 0.8s ease-in-out infinite; border-left-color:var(--neon-pink);}
+  .customer-name{font-size:0.8rem; font-weight:700; margin-bottom:4px;}
+  .customer-order{font-size:0.75rem; opacity:0.85; margin-bottom:8px;}
+  .customer-timer{font-size:0.7rem; color:var(--neon-pink); font-family:'Space Mono', monospace;}
+  .serve-btn{
+    width:100%; background:var(--neon-gold); color:#2a1d15; border:none;
+    border-radius:8px; padding:8px; font-weight:700; cursor:pointer; font-size:0.8rem;
+  }
+  .serve-btn:disabled{background:#5a4a38; color:#8a7a68; cursor:not-allowed;}
+
+  .tabs{
+    display:flex; gap:8px; justify-content:center; margin-bottom:12px; flex-wrap:wrap;
+  }
+  .tab{
+    background:var(--bg-panel); color:var(--cream); border:1px solid #4a2c14;
+    border-radius:10px; padding:8px 16px; cursor:pointer; font-size:0.8rem; font-weight:600;
+  }
+  .tab.active{background:var(--neon-gold); color:#2a1d15; border-color:var(--neon-gold);}
+  .tab:disabled{opacity:0.4; cursor:not-allowed;}
+
+  .panel-section{
+    background:var(--bg-panel);
+    border:1px solid #4a2c14;
+    border-radius:16px;
+    padding:16px;
+    margin-bottom:18px;
+  }
+  .panel-section h2{
+    font-size:1rem; text-transform:uppercase; letter-spacing:0.08em;
+    color:var(--neon-gold); text-align:center; margin:0 0 14px;
+  }
+  .panel-grid{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
+    gap:12px;
+  }
+  .card{
+    background:var(--bg-panel-light); border:1px solid #4a2c14; border-radius:12px;
+    padding:12px; display:flex; flex-direction:column; gap:5px;
+  }
+  .card .icon{font-size:26px;}
+  .card .name{font-weight:600; font-size:0.85rem;}
+  .card .desc{font-size:0.72rem; opacity:0.75;}
+  .card .stock{font-size:0.7rem; font-family:'Space Mono', monospace; color:var(--green-fresh);}
+  .card .stock.low{color:var(--neon-pink);}
+  .card button{
+    background:var(--neon-gold); color:#2a1d15; border:none; border-radius:8px;
+    padding:8px; font-weight:700; cursor:pointer; font-family:'Space Mono', monospace;
+    font-size:0.78rem; margin-top:4px;
+  }
+  .card button:disabled{background:#5a4a38; color:#8a7a68; cursor:not-allowed;}
+  .card button.selected{background:var(--green-fresh); color:#1b120d;}
+  .card.locked{opacity:0.55; filter:grayscale(0.8);}
+  .locked-tag{font-size:0.65rem; color:var(--neon-pink); font-weight:700;}
+  .unlock-condition{font-size:0.68rem; opacity:0.8; color:var(--neon-gold);}
+
+  .skin-preview{
+    width:60px; height:60px; border-radius:50%; margin:0 auto 8px;
+    border:3px solid #4a2c14; box-shadow:0 4px 10px rgba(0,0,0,0.4);
+  }
+  .skin-preview.meat{
+    border-radius:30px 30px 12px 12px;
+    height:80px;
+  }
+
+  .recipe-preview{
+    background:var(--bg-panel-light);
+    border-radius:12px; padding:12px; margin-bottom:12px;
+    text-align:center; font-size:0.85rem;
+  }
+  .recipe-preview strong{color:var(--neon-gold);}
+
+  .achievements{
+    display:flex; flex-wrap:wrap; gap:8px; justify-content:center;
+  }
+  .badge{
+    background:var(--bg-panel-light); border:1px solid #4a2c14; border-radius:20px;
+    padding:6px 12px; font-size:0.72rem; opacity:0.5;
+  }
+  .badge.unlocked{
+    background:var(--green-fresh); color:#1b120d; opacity:1; font-weight:700; border-color:var(--green-fresh);
+  }
+
+  .reset-row{text-align:center; margin-top:10px;}
+  .reset-btn{
+    background:none; border:1px solid #5a4a38; color:var(--cream); opacity:0.7;
+    border-radius:8px; padding:7px 14px; font-size:0.75rem; cursor:pointer; font-family:inherit;
+  }
+  .footnote{text-align:center; font-size:0.72rem; opacity:0.5; margin-top:18px;}
+
+  .credit{
+    position:fixed;
+    bottom:12px;
+    left:12px;
+    font-family:'Space Mono', monospace;
+    font-size:0.7rem;
+    color:var(--cream);
+    opacity:0.65;
+    z-index:100;
+    text-shadow:0 1px 3px rgba(0,0,0,0.8);
+    pointer-events:none;
+  }
+
+  /* Tutorial overlay */
+  .tutorial-overlay{
+    position:fixed; inset:0; background:rgba(0,0,0,0.82);
+    z-index:1000; display:flex; align-items:center; justify-content:center;
+    padding:20px; backdrop-filter:blur(4px);
+  }
+  .tutorial-card{
+    background:var(--bg-panel); border:2px solid var(--neon-gold); border-radius:20px;
+    max-width:520px; width:100%; padding:26px; text-align:center;
+    box-shadow:0 0 40px rgba(255,210,63,0.2);
+  }
+  .tutorial-card h2{
+    color:var(--neon-gold); font-family:'Monoton', cursive; font-size:1.6rem; margin:0 0 14px;
+  }
+  .tutorial-card p{font-size:0.95rem; line-height:1.5; margin:0 0 22px;}
+  .tutorial-card .emoji{font-size:3rem; margin-bottom:12px; display:block;}
+  .tutorial-buttons{
+    display:flex; gap:12px; justify-content:center; flex-wrap:wrap;
+  }
+  .tutorial-btn{
+    background:var(--neon-gold); color:#2a1d15; border:none; border-radius:10px;
+    padding:10px 22px; font-weight:700; cursor:pointer; font-size:0.85rem;
+  }
+  .tutorial-btn.secondary{background:transparent; color:var(--cream); border:1px solid #4a2c14;}
+  .tutorial-dots{display:flex; gap:6px; justify-content:center; margin:14px 0;}
+  .dot{width:8px; height:8px; border-radius:50%; background:#4a2c14;}
+  .dot.active{background:var(--neon-gold);}
+
+  /* Unlock notification */
+  .unlock-toast{
+    position:fixed; top:20px; left:50%; transform:translateX(-50%) translateY(-120%);
+    background:var(--bg-panel); border:2px solid var(--neon-gold); border-radius:16px;
+    padding:16px 24px; z-index:900; text-align:center;
+    box-shadow:0 8px 30px rgba(0,0,0,0.5);
+    transition:transform 0.5s cubic-bezier(0.175,0.885,0.32,1.275);
+  }
+  .unlock-toast.show{transform:translateX(-50%) translateY(0);}
+  .unlock-toast .title{
+    color:var(--neon-gold); font-weight:700; font-size:1rem; margin-bottom:4px;
+  }
+  .unlock-toast .desc{font-size:0.8rem; opacity:0.85;}
+  .unlock-toast .emoji{font-size:1.8rem; margin-bottom:6px;}
+
+  @keyframes neonFlicker{
+    0%,18%,22%,25%,53%,57%,100%{opacity:1;}
+    20%,24%,55%{opacity:0.35;}
+  }
+  @keyframes flameFlicker{
+    0%,100%{transform:scaleY(1) translateY(0);}
+    50%{transform:scaleY(1.18) translateY(-3px);}
+  }
+  @keyframes spinShine{
+    0%{left:-30%;} 100%{left:130%;}
+  }
+  @keyframes sliceSwipe{
+    0%{transform:rotate(-30deg) translateX(-18px);}
+    50%{transform:rotate(12deg) translateX(14px);}
+    100%{transform:rotate(-30deg) translateX(-18px);}
+  }
+  @keyframes floatUp{
+    0%{opacity:1; transform:translate(-50%,-50%) scale(1);}
+    100%{opacity:0; transform:translate(-50%,-130%) scale(1.25);}
+  }
+  @keyframes particleFall{
+    0%{opacity:1; transform:translate(0,0) rotate(0deg);}
+    100%{opacity:0; transform:translate(var(--dx,0px), 70px) rotate(var(--rot,90deg));}
+  }
+  @keyframes bubblePulse{
+    0%{transform:scale(0.92);} 100%{transform:scale(1);}
+  }
+  @keyframes spitBounce{
+    0%{transform:scale(1) translateY(0);}
+    30%{transform:scale(0.94) translateY(4px);}
+    60%{transform:scale(1.04) translateY(-3px);}
+    100%{transform:scale(1) translateY(0);}
+  }
+  @keyframes shake{
+    0%,100%{transform:translateX(0);}
+    20%{transform:translateX(-8px);}
+    40%{transform:translateX(8px);}
+    60%{transform:translateX(-5px);}
+    80%{transform:translateX(5px);}
+  }
+  .shake{animation:shake 0.35s ease-in-out;}
+  @keyframes pop{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.1);}
+    100%{transform:scale(1);}
+  }
+  .avatar.pop{animation:pop 0.3s ease-out;}
+  @keyframes glowPulse{
+    0%{box-shadow:0 0 0 0 rgba(255,210,63,0.6);}
+    50%{box-shadow:0 0 30px 12px rgba(255,210,63,0);}
+    100%{box-shadow:0 0 0 0 rgba(255,210,63,0);}
+  }
+  .glow-pulse{animation:glowPulse 1.2s ease-out;}
+  @keyframes slideIn{
+    0%{opacity:0; transform:translateY(-25px) scale(0.95);}
+    70%{transform:translateY(4px) scale(1.01);}
+    100%{opacity:1; transform:translateY(0) scale(1);}
+  }
+  @keyframes urgentPulse{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.02);}
+  }
+  @keyframes moneyPulse{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.2); color:var(--neon-gold);}
+    100%{transform:scale(1);}
+  }
+  .money-pulse{animation:moneyPulse 0.3s ease-out;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important;}
+  }
+
+  @media (max-width:520px){
+    .shop-floor{flex-direction:column; align-items:center;}
+    .mohamed-area, .doner-area, .order-panel{max-width:100%; width:100%;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="awning"></div>
+  <header class="neon-header">
+    <h1 class="neon-sign">DÖNER KEBAB <span class="neon-name">MOHAMED</span></h1>
+    <p class="neon-open">★ ABIERTO 24H ★</p>
+  </header>
+
+  <main class="game">
+
+    <div class="audio-bar">
+      <button class="audio-btn" id="musicToggle">🎵 Música ON</button>
+      <button class="audio-btn" id="sfxToggle">🔊 Sonido ON</button>
+    </div>
+
+    <section class="stats-bar" aria-label="Estadísticas del negocio">
+      <div class="stat"><span class="stat-label">Caja</span><span class="stat-value" id="money">0 €</span></div>
+      <div class="stat"><span class="stat-label">Por corte</span><span class="stat-value" id="clickValue">+1 €</span></div>
+      <div class="stat"><span class="stat-label">Por segundo</span><span class="stat-value" id="perSecond">+0 €</span></div>
+      <div class="stat"><span class="stat-label">Vendidos</span><span class="stat-value" id="sold">0</span></div>
+      <div class="stat"><span class="stat-label">Reputación</span><span class="stat-value small" id="reputation">⭐ 0</span></div>
+      <div class="stat"><span class="stat-label">Día</span><span class="stat-value small" id="day">1</span></div>
+    </section>
+
+    <section class="shop-floor">
+      <div class="mohamed-area" id="mohamedArea">
+        <div class="avatar" id="avatar">
+          <div class="hat"></div>
+          <div class="face">
+            <div class="eyes"></div>
+            <div class="mustache"></div>
+            <div class="smile"></div>
+          </div>
+          <div class="apron"></div>
+        </div>
+        <div class="speech-bubble" id="speech">¡Bienvenido a mi puesto!</div>
+      </div>
+
+      <div class="doner-area" id="donerArea">
+        <div class="flames" aria-hidden="true">🔥🔥🔥</div>
+        <div class="spit" id="spit" role="button" tabindex="0" aria-label="Cortar el döner kebab">
+          <div class="shine"></div>
+        </div>
+        <div class="knife" id="knife" aria-hidden="true">🔪</div>
+        <p class="click-hint">Toca el döner para cortar y servir la receta activa</p>
+      </div>
+
+      <div class="order-panel" id="orderPanel">
+        <h2>🧍 Pedidos en cola</h2>
+        <div id="ordersList"></div>
+      </div>
+    </section>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="ingredients">🥬 Ingredientes</button>
+      <button class="tab" data-tab="recipes">🥙 Recetas</button>
+      <button class="tab" data-tab="upgrades">⚡ Mejoras</button>
+      <button class="tab" data-tab="skins">🎨 Skins</button>
+      <button class="tab" data-tab="achievements">🏆 Logros</button>
+    </div>
+
+    <section class="panel-section" id="panel-ingredients">
+      <h2>Almacén de ingredientes</h2>
+      <div class="panel-grid" id="ingredientsGrid"></div>
+    </section>
+
+    <section class="panel-section" id="panel-recipes" style="display:none;">
+      <h2>Carta de recetas</h2>
+      <div class="recipe-preview" id="recipePreview">
+        Selecciona una receta para ver sus ingredientes y valor.
+      </div>
+      <div class="panel-grid" id="recipesGrid"></div>
+    </section>
+
+    <section class="panel-section" id="panel-upgrades" style="display:none;">
+      <h2>Mejoras del puesto</h2>
+      <div class="panel-grid" id="upgradesGrid"></div>
+    </section>
+
+    <section class="panel-section" id="panel-skins" style="display:none;">
+      <h2>🍖 Skins del rollo de carne</h2>
+      <div class="panel-grid" id="meatSkinsGrid"></div>
+      <h2 style="margin-top:22px;">🧑 Skins de Mohamed</h2>
+      <div class="panel-grid" id="mohamedSkinsGrid"></div>
+    </section>
+
+    <section class="panel-section" id="panel-achievements" style="display:none;">
+      <h2>Logros del kebab</h2>
+      <div class="achievements" id="achievementsList"></div>
+    </section>
+
+    <div class="reset-row">
+      <button class="reset-btn" id="resetBtn">Reiniciar partida</button>
+    </div>
+    <p class="footnote">El progreso no se guarda al recargar la página.</p>
+
+  </main>
+
+  <div class="credit">Created by David Gamazo</div>
+
+  <!-- Tutorial -->
+  <div class="tutorial-overlay" id="tutorialOverlay" style="display:none;">
+    <div class="tutorial-card" id="tutorialCard">
+      <span class="emoji" id="tutorialEmoji">🥙</span>
+      <h2 id="tutorialTitle">¡Bienvenido!</h2>
+      <p id="tutorialText">Texto del tutorial</p>
+      <div class="tutorial-dots" id="tutorialDots"></div>
+      <div class="tutorial-buttons">
+        <button class="tutorial-btn secondary" id="tutorialPrev">Anterior</button>
+        <button class="tutorial-btn" id="tutorialNext">Siguiente</button>
+        <button class="tutorial-btn secondary" id="tutorialSkip">Saltar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Unlock toast -->
+  <div class="unlock-toast" id="unlockToast">
+    <div class="emoji" id="unlockEmoji">🔓</div>
+    <div class="title" id="unlockTitle">¡Desbloqueado!</div>
+    <div class="desc" id="unlockDesc">Descripción</div>
+  </div>
+
+<script>
+  // ---------- Motor de audio ----------
+  class SoundEngine {
+    constructor() {
+      this.ctx = null;
+      this.masterGain = null;
+      this.musicGain = null;
+      this.sfxGain = null;
+      this.musicEnabled = true;
+      this.sfxEnabled = true;
+      this.musicInterval = null;
+      this.musicStep = 0;
+      this.started = false;
+    }
+
+    init() {
+      if (this.ctx) return;
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      this.ctx = new AudioContext();
+      this.masterGain = this.ctx.createGain();
+      this.masterGain.gain.value = 0.45;
+      this.masterGain.connect(this.ctx.destination);
+
+      this.musicGain = this.ctx.createGain();
+      this.musicGain.gain.value = 0.12;
+      this.musicGain.connect(this.masterGain);
+
+      this.sfxGain = this.ctx.createGain();
+      this.sfxGain.gain.value = 0.35;
+      this.sfxGain.connect(this.masterGain);
+    }
+
+    resume() {
+      if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume();
+    }
+
+    playTone(freq, duration, type='sine', when=0, gain=1, dest='sfx') {
+      if (!this.ctx) return;
+      if (dest === 'sfx' && !this.sfxEnabled) return;
+      if (dest === 'music' && !this.musicEnabled) return;
+      const t = this.ctx.currentTime + when;
+      const osc = this.ctx.createOscillator();
+      const g = this.ctx.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, t);
+      g.gain.setValueAtTime(0.001, t);
+      g.gain.linearRampToValueAtTime(gain, t + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.001, t + duration);
+      osc.connect(g);
+      g.connect(dest === 'music' ? this.musicGain : this.sfxGain);
+      osc.start(t);
+      osc.stop(t + duration + 0.05);
+    }
+
+    playNoise(duration, when=0) {
+      if (!this.ctx || !this.sfxEnabled) return;
+      const t = this.ctx.currentTime + when;
+      const bufferSize = Math.max(1, Math.floor(this.ctx.sampleRate * duration));
+      const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+      const noise = this.ctx.createBufferSource();
+      noise.buffer = buffer;
+      const filter = this.ctx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.value = 700;
+      const g = this.ctx.createGain();
+      g.gain.setValueAtTime(0.4, t);
+      g.gain.exponentialRampToValueAtTime(0.001, t + duration);
+      noise.connect(filter);
+      filter.connect(g);
+      g.connect(this.sfxGain);
+      noise.start(t);
+      noise.stop(t + duration + 0.05);
+    }
+
+    cut() {
+      this.resume();
+      this.playNoise(0.12, 0);
+      this.playTone(130, 0.18, 'sawtooth', 0, 0.25);
+      this.playTone(90, 0.14, 'square', 0.04, 0.2);
+    }
+
+    buy() {
+      this.resume();
+      this.playTone(600, 0.08, 'sine', 0, 0.35);
+      this.playTone(800, 0.08, 'sine', 0.08, 0.35);
+      this.playTone(1200, 0.16, 'sine', 0.16, 0.35);
+    }
+
+    unlock() {
+      this.resume();
+      this.playTone(440, 0.1, 'sine', 0, 0.35);
+      this.playTone(554, 0.1, 'sine', 0.1, 0.35);
+      this.playTone(659, 0.1, 'sine', 0.2, 0.35);
+      this.playTone(880, 0.3, 'sine', 0.3, 0.4);
+    }
+
+    error() {
+      this.resume();
+      this.playTone(250, 0.18, 'sawtooth', 0, 0.3);
+      this.playTone(180, 0.28, 'sawtooth', 0.18, 0.3);
+    }
+
+    serve() {
+      this.resume();
+      this.playTone(523.25, 0.08, 'sine', 0, 0.35);
+      this.playTone(659.25, 0.08, 'sine', 0.08, 0.35);
+      this.playTone(783.99, 0.16, 'sine', 0.16, 0.35);
+    }
+
+    achievement() {
+      this.resume();
+      this.playTone(523.25, 0.08, 'sine', 0, 0.35);
+      this.playTone(659.25, 0.08, 'sine', 0.08, 0.35);
+      this.playTone(783.99, 0.08, 'sine', 0.16, 0.35);
+      this.playTone(1046.50, 0.35, 'sine', 0.24, 0.4);
+    }
+
+    startMusic() {
+      if (!this.musicEnabled || this.musicInterval) return;
+      const notes = [220, 261.63, 329.63, 392, 329.63, 261.63, 220, 196];
+      this.musicInterval = setInterval(() => {
+        if (!this.ctx || !this.musicEnabled) return;
+        const freq = notes[this.musicStep % notes.length];
+        const osc = this.ctx.createOscillator();
+        const g = this.ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+        g.gain.setValueAtTime(0.001, this.ctx.currentTime);
+        g.gain.linearRampToValueAtTime(0.07, this.ctx.currentTime + 0.04);
+        g.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.35);
+        osc.connect(g);
+        g.connect(this.musicGain);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.35);
+        this.musicStep++;
+      }, 260);
+    }
+
+    stopMusic() {
+      if (this.musicInterval) {
+        clearInterval(this.musicInterval);
+        this.musicInterval = null;
+      }
+    }
+
+    toggleMusic() {
+      this.musicEnabled = !this.musicEnabled;
+      if (this.musicEnabled) this.startMusic();
+      else this.stopMusic();
+      return this.musicEnabled;
+    }
+
+    toggleSfx() {
+      this.sfxEnabled = !this.sfxEnabled;
+      return this.sfxEnabled;
+    }
+  }
+
+  const sound = new SoundEngine();
+  let audioStarted = false;
+  function startAudio() {
+    if (audioStarted) return;
+    sound.init();
+    sound.resume();
+    sound.startMusic();
+    audioStarted = true;
+  }
+
+  // ---------- Estado del juego ----------
+  let money = 0;
+  let totalSold = 0;
+  let reputation = 0;
+  let day = 1;
+  let dayTimer = 0;
+  let selectedRecipe = 'classic';
+  let globalMultiplier = 1;
+  let currentMeatSkin = 'classic';
+  let currentMohamedSkin = 'classic';
+
+  // ---------- Skins ----------
+  const meatSkins = {
+    classic: {name:'Cordero clásico', emoji:'🥩', colors:['#6b3315','#8b4a22','#b06a35','#d68f4e'], unlock:{unlocked:true, cost:0, condition:'Disponible desde el inicio'}},
+    chicken: {name:'Pollo dorado', emoji:'🍗', colors:['#e6c985','#f5dba8','#d4a85c','#fff4d6'], unlock:{unlocked:false, cost:120, condition:'Vende 10 kebabs'}},
+    beef:    {name:'Ternera braseada', emoji:'🥩', colors:['#4a1a1a','#6b2b2b','#8f3d3d','#a84a4a'], unlock:{unlocked:false, cost:250, condition:'Llega a 100 €'}},
+    veggie:  {name:'Falafel veggie', emoji:'🌱', colors:['#3d5a1a','#557d24','#7cb342','#a4d46e'], unlock:{unlocked:false, cost:300, condition:'Alcanza el día 2'}},
+    golden:  {name:'Döner dorado', emoji:'👑', colors:['#b8860b','#daa520','#ffd700','#ffec8b'], unlock:{unlocked:false, cost:1000, condition:'Vende 100 kebabs'}},
+    volcano: {name:'Volcán picante', emoji:'🌶️', colors:['#3d0e0e','#7a1f1f','#c41e1e','#ff4500'], unlock:{unlocked:false, cost:750, condition:'Alcanza 50 de reputación'}},
+  };
+
+  const mohamedSkins = {
+    classic: {name:'Clásico', emoji:'👨', skin:'#c98a52', apron:'#7cb342', hat:'#f4e9d8', unlock:{unlocked:true, cost:0, condition:'Disponible desde el inicio'}},
+    chef:    {name:'Chef francés', emoji:'👨‍🍳', skin:'#8d5524', apron:'#ffffff', hat:'#ffffff', unlock:{unlocked:false, cost:150, condition:'Vende 15 kebabs'}},
+    summer:  {name:'Veraniego', emoji:'🏖️', skin:'#6f4e37', apron:'#ff8c42', hat:'#ff3864', unlock:{unlocked:false, cost:300, condition:'Alcanza el día 3'}},
+    formal:  {name:'Gala', emoji:'🤵', skin:'#c98a52', apron:'#1a1a2e', hat:'#000000', unlock:{unlocked:false, cost:500, condition:'Llega a 500 €'}},
+    neon:    {name:'Neon street', emoji:'🕶️', skin:'#5a3a21', apron:'#00ffcc', hat:'#ff00ff', unlock:{unlocked:false, cost:800, condition:'Alcanza 100 de reputación'}},
+  };
+
+  function applyMeatSkin(id){
+    currentMeatSkin = id;
+    const s = meatSkins[id];
+    spit.style.setProperty('--meat-1', s.colors[0]);
+    spit.style.setProperty('--meat-2', s.colors[1]);
+    spit.style.setProperty('--meat-3', s.colors[2]);
+    spit.style.setProperty('--meat-4', s.colors[3]);
+  }
+
+  function applyMohamedSkin(id){
+    currentMohamedSkin = id;
+    const s = mohamedSkins[id];
+    avatar.style.setProperty('--mohamed-skin', s.skin);
+    avatar.style.setProperty('--mohamed-apron', s.apron);
+    avatar.style.setProperty('--mohamed-hat', s.hat);
+  }
+
+  // ---------- Ingredientes ----------
+  const ingredients = [
+    {id:'cordero',   name:'Cordero marinado', emoji:'🐑', price:0.45, stock:15, unlocked:true},
+    {id:'pollo',     name:'Pollo especiado',  emoji:'🐔', price:0.35, stock:12, unlocked:true},
+    {id:'ternera',   name:'Ternera adobada',  emoji:'🐄', price:0.55, stock:0,  unlocked:false, unlockCost:200},
+    {id:'pan_pita',  name:'Pan pita',         emoji:'🥙', price:0.18, stock:25, unlocked:true},
+    {id:'pan_durum', name:'Pan durum',        emoji:'🫓', price:0.22, stock:0,  unlocked:false, unlockCost:350},
+    {id:'tomate',    name:'Tomate',           emoji:'🍅', price:0.12, stock:20, unlocked:true},
+    {id:'cebolla',   name:'Cebolla',          emoji:'🧅', price:0.08, stock:20, unlocked:true},
+    {id:'lechuga',   name:'Lechuga',          emoji:'🥬', price:0.08, stock:20, unlocked:true},
+    {id:'col',       name:'Col blanca',       emoji:'🥗', price:0.07, stock:20, unlocked:true},
+    {id:'pepino',    name:'Pepino',           emoji:'🥒', price:0.10, stock:10, unlocked:true},
+    {id:'salsa_yogur', name:'Salsa de yogur', emoji:'🥣', price:0.18, stock:15, unlocked:true},
+    {id:'salsa_picante', name:'Salsa picante', emoji:'🌶️', price:0.12, stock:10, unlocked:true},
+    {id:'salsa_ajo', name:'Salsa de ajo',     emoji:'🧄', price:0.15, stock:10, unlocked:true},
+    {id:'patatas',   name:'Patatas fritas',   emoji:'🍟', price:0.22, stock:0,  unlocked:false, unlockCost:500},
+    {id:'queso',     name:'Queso feta',       emoji:'🧀', price:0.28, stock:0,  unlocked:false, unlockCost:600},
+    {id:'menta',     name:'Menta fresca',     emoji:'🌿', price:0.12, stock:0,  unlocked:false, unlockCost:750},
+    {id:'hummus',    name:'Hummus',           emoji:'🫘', price:0.20, stock:0,  unlocked:false, unlockCost:900},
+    {id:'berenjena', name:'Berenjena asada',  emoji:'🍆', price:0.16, stock:0,  unlocked:false, unlockCost:1000},
+  ];
+
+  function getIng(id){ return ingredients.find(i => i.id === id); }
+  function hasStock(ids){ return ids.every(id => getIng(id).stock > 0); }
+  function consume(ids){ ids.forEach(id => getIng(id).stock--); }
+
+  // ---------- Recetas con progresión ----------
+  const recipes = [
+    {id:'classic', name:'Döner Clásico', emoji:'🥙', desc:'El original que enamora.', price:4.50, required:['pan_pita','cordero','tomate','cebolla','col','salsa_yogur'], unlock:{unlocked:true, cost:0, condition:'Disponible desde el inicio'}},
+    {id:'chicken', name:'Döner de Pollo', emoji:'🍗', desc:'Suave, jugoso y especiado.', price:4.00, required:['pan_pita','pollo','lechuga','tomate','pepino','salsa_ajo'], unlock:{unlocked:false, cost:50, condition:'Vende 5 kebabs'}},
+    {id:'mix',     name:'Döner Mixto', emoji:'🍖', desc:'Lo mejor de dos carnes.', price:6.00, required:['pan_pita','cordero','pollo','tomate','cebolla','col','pepino','salsa_yogur','salsa_picante'], unlock:{unlocked:false, cost:150, condition:'Vende 25 kebabs'}},
+    {id:'veggie',  name:'Döner Veggie', emoji:'🌱', desc:'Sin carne, lleno de sabor.', price:4.80, required:['pan_pita','hummus','tomate','lechuga','pepino','col','salsa_ajo'], unlock:{unlocked:false, cost:200, condition:'Alcanza el día 2'}},
+    {id:'deluxe',  name:'Döner Deluxe', emoji:'👑', desc:'La experiencia completa.', price:8.50, required:['pan_pita','cordero','pollo','ternera','tomate','cebolla','col','lechuga','pepino','salsa_yogur','salsa_picante','salsa_ajo','queso','patatas','menta'], unlock:{unlocked:false, cost:500, condition:'Llega a 300 €'}},
+    {id:'durum',   name:'Durum Especial', emoji:'🌯', desc:'En pan plano y con todo.', price:7.00, required:['pan_durum','cordero','pollo','tomate','cebolla','col','salsa_picante','patatas'], unlock:{unlocked:false, cost:600, condition:'Alcanza el día 4'}},
+  ];
+
+  function getRecipe(id){ return recipes.find(r => r.id === id); }
+  function recipeValue(r){
+    let val = r.price * globalMultiplier;
+    upgrades.forEach(u => { if(u.type === 'recipeVal') val *= Math.pow(u.amount, u.owned); });
+    return Math.max(0.5, val);
+  }
+  function canMakeRecipe(r){ return hasStock(r.required); }
+  function unlockedRecipes(){ return recipes.filter(r => r.unlock.unlocked); }
+
+  // ---------- Mejoras con progresión ----------
+  const upgrades = [
+    {id:'knife',     name:'Cuchillo afilado',          desc:'+0.50 € por corte base',          icon:'🔪',     baseCost:15,    scale:1.18, owned:0, type:'click', amount:0.5, unlock:{unlocked:true, cost:0, condition:'Disponible desde el inicio'}},
+    {id:'helper',    name:'Ayudante de cocina',        desc:'+1 €/seg',                       icon:'🧑‍🍳',  baseCost:60,    scale:1.16, owned:0, type:'persec', amount:1, unlock:{unlocked:true, cost:0, condition:'Disponible desde el inicio'}},
+    {id:'queue',     name:'Cola de clientes',          desc:'+3 € por corte base',             icon:'🧍',     baseCost:150,   scale:1.18, owned:0, type:'click', amount:3, unlock:{unlocked:false, cost:100, condition:'Vende 10 kebabs'}},
+    {id:'knife2',    name:'Cuchillo de cerámica',      desc:'+1.50 € por corte base',          icon:'🔪',     baseCost:80,    scale:1.20, owned:0, type:'click', amount:1.5, unlock:{unlocked:false, cost:200, condition:'Llega a 80 €'}},
+    {id:'spit',      name:'Asador automático',         desc:'+8 €/seg',                       icon:'🌀',     baseCost:400,   scale:1.16, owned:0, type:'persec', amount:8, unlock:{unlocked:false, cost:300, condition:'Vende 30 kebabs'}},
+    {id:'hygiene',   name:'Certificado de higiene',    desc:'+10% reputación ganada',          icon:'✨',     baseCost:600,   scale:1.25, owned:0, type:'rep',    amount:1.1, unlock:{unlocked:false, cost:400, condition:'Alcanza 20 de reputación'}},
+    {id:'spices',    name:'Especias turcas premium',   desc:'+20% valor de recetas',          icon:'🧂',    baseCost:1200,  scale:1.35, owned:0, type:'recipeVal', amount:1.2, unlock:{unlocked:false, cost:800, condition:'Alcanza el día 2'}},
+    {id:'marketing', name:'Cartel luminoso',           desc:'Atrae pedidos más rápido',        icon:'📢',     baseCost:900,   scale:1.30, owned:0, type:'orderSpeed', amount:0.85, unlock:{unlocked:false, cost:600, condition:'Llega a 200 €'}},
+    {id:'sauce',     name:'Salsa secreta de Mohamed',  desc:'x2 a todos los ingresos',         icon:'🌶️',    baseCost:3000,  scale:2.8,  owned:0, type:'mult',   amount:2, unlock:{unlocked:false, cost:2000, condition:'Vende 100 kebabs'}},
+    {id:'oven',      name:'Horno de leña',             desc:'+25 €/seg',                      icon:'🪵',     baseCost:2000,  scale:1.18, owned:0, type:'persec', amount:25, unlock:{unlocked:false, cost:1500, condition:'Alcanza el día 5'}},
+    {id:'delivery',  name:'Servicio a domicilio',      desc:'+5 €/seg y más clientes',         icon:'🛵',     baseCost:3500,  scale:1.22, owned:0, type:'persec', amount:5, unlock:{unlocked:false, cost:2500, condition:'Alcanza 100 de reputación'}},
+    {id:'franchise', name:'Segundo puesto',            desc:'+70 €/seg',                      icon:'🏪',     baseCost:8000,  scale:1.20, owned:0, type:'persec', amount:70, unlock:{unlocked:false, cost:5000, condition:'Llega a 5.000 €'}},
+  ];
+
+  // ---------- Pedidos ----------
+  let orders = [];
+  const maxOrders = 4;
+  const customerNames = ['Ana','Carlos','Pepito','María','Hassan','Lucía','Ibrahim','Sofía','Omar','Elena','Youssef','Nadia','Paco','Aisha','Manolo','Zahra','Javi','Laila','Antonio','Fatima'];
+  const orderComments = ['¡Con todo!','Sin cebolla, por favor.','Extra picante.','Pan crujiente.','Para llevar.','¿Me pones más carne?','Sin salsa.','Doble salsa de ajo.','¡Rápido, que tengo prisa!'];
+
+  function addOrder(){
+    if(orders.length >= maxOrders) return;
+    const available = unlockedRecipes();
+    if(available.length === 0) return;
+    const r = available[Math.floor(Math.random() * available.length)];
+    const comment = orderComments[Math.floor(Math.random() * orderComments.length)];
+    const name = customerNames[Math.floor(Math.random() * customerNames.length)];
+    orders.push({
+      id: Date.now() + Math.random(),
+      recipeId: r.id,
+      name, comment,
+      timer: 30,
+      maxTimer: 30,
+      newOrder: true
+    });
+    renderOrders();
+    setTimeout(() => {
+      orders.forEach(o => o.newOrder = false);
+    }, 600);
+  }
+
+  function serveOrder(orderId){
+    const order = orders.find(o => o.id === orderId);
+    if(!order) return;
+    const r = getRecipe(order.recipeId);
+    if(!canMakeRecipe(r)){
+      sound.error();
+      donerArea.classList.add('shake');
+      setTimeout(() => donerArea.classList.remove('shake'), 350);
+      showQuip('¡Faltan ingredientes para ' + r.name + '!');
+      return;
+    }
+    consume(r.required);
+    const base = recipeValue(r);
+    const timeBonus = Math.max(0, (order.timer / order.maxTimer) * 0.3);
+    const tip = Math.round(base * timeBonus * 100) / 100;
+    const total = Math.round((base + tip) * 100) / 100;
+
+    money += total;
+    totalSold += 1;
+    reputation += (1 * getRepMultiplier());
+
+    orders = orders.filter(o => o.id !== orderId);
+    sound.serve();
+    avatar.classList.add('pop');
+    orderPanel.classList.add('glow-pulse');
+    moneyEl.classList.add('money-pulse');
+    setTimeout(() => {
+      avatar.classList.remove('pop');
+      orderPanel.classList.remove('glow-pulse');
+      moneyEl.classList.remove('money-pulse');
+    }, 1200);
+    showQuip('¡' + order.name + ' se ha llevado un ' + r.name + ' por ' + formatMoney(total) + '!');
+    checkUnlocks();
+    render();
+  }
+
+  function getRepMultiplier(){
+    let m = 1;
+    upgrades.forEach(u => { if(u.type === 'rep') m *= Math.pow(u.amount, u.owned); });
+    return m;
+  }
+
+  // ---------- Logros ----------
+  const achievements = [
+    {id:'first', name:'Primer kebab', desc:'Vende tu primer döner.', condition:()=>totalSold>=1, unlocked:false},
+    {id:'hundred', name:'Cien kebabs', desc:'Vende 100 döner.', condition:()=>totalSold>=100, unlocked:false},
+    {id:'thousand', name:'Mil kebabs', desc:'Vende 1.000 döner.', condition:()=>totalSold>=1000, unlocked:false},
+    {id:'rich', name:'Primeros 1.000 €', desc:'Ahorra 1.000 €.', condition:()=>money>=1000, unlocked:false},
+    {id:'famous', name:'Famoso en el barrio', desc:'Alcanza 50 de reputación.', condition:()=>reputation>=50, unlocked:false},
+    {id:'legend', name:'Leyenda del döner', desc:'Alcanza 200 de reputación.', condition:()=>reputation>=200, unlocked:false},
+    {id:'deluxe', name:'Chef Deluxe', desc:'Sirve un Döner Deluxe.', condition:()=>totalSold>=50, unlocked:false},
+    {id:'day7', name:'Superviviente', desc:'Llega al día 7.', condition:()=>day>=7, unlocked:false},
+  ];
+
+  // ---------- Cálculos ----------
+  function getClickValue(){
+    let base = 1;
+    upgrades.forEach(u => { if(u.type === 'click') base += u.amount * u.owned; });
+    let mult = 1;
+    upgrades.forEach(u => { if(u.type === 'mult') mult *= Math.pow(u.amount, u.owned); });
+    return base * mult;
+  }
+
+  function getPerSecond(){
+    let base = 0;
+    upgrades.forEach(u => { if(u.type === 'persec') base += u.amount * u.owned; });
+    let mult = 1;
+    upgrades.forEach(u => { if(u.type === 'mult') mult *= Math.pow(u.amount, u.owned); });
+    return base * mult;
+  }
+
+  function getCost(u){
+    return Math.ceil(u.baseCost * Math.pow(u.scale, u.owned));
+  }
+
+  function getOrderInterval(){
+    let base = 8;
+    upgrades.forEach(u => { if(u.type === 'orderSpeed') base *= Math.pow(u.amount, u.owned); });
+    return Math.max(2, base);
+  }
+
+  function formatMoney(n){
+    return n.toLocaleString('es-ES', {maximumFractionDigits:2}) + ' €';
+  }
+
+  // ---------- Sistema de desbloqueos ----------
+  function conditionMet(condition){
+    if(condition === 'Disponible desde el inicio') return true;
+    const m = condition.match(/Vende (\d+) kebabs/);
+    if(m) return totalSold >= parseInt(m[1]);
+    const m2 = condition.match(/Llega a ([\d.]+) €/);
+    if(m2) return money >= parseFloat(m2[1].replace(/\./g,'').replace(',','.')) || money >= parseFloat(m2[1]);
+    const m3 = condition.match(/Alcanza el día (\d+)/);
+    if(m3) return day >= parseInt(m3[1]);
+    const m4 = condition.match(/Alcanza (\d+) de reputación/);
+    if(m4) return reputation >= parseInt(m4[1]);
+    return false;
+  }
+
+  function checkUnlocks(){
+    let any = false;
+    recipes.forEach(r => {
+      if(!r.unlock.unlocked && conditionMet(r.unlock.condition)){
+        r.unlock.unlocked = true;
+        showUnlock('🔓 Receta desbloqueada', r.name, r.emoji);
+        sound.unlock();
+        any = true;
+      }
+    });
+    upgrades.forEach(u => {
+      if(!u.unlock.unlocked && conditionMet(u.unlock.condition)){
+        u.unlock.unlocked = true;
+        showUnlock('⚡ Mejora desbloqueada', u.name, u.icon);
+        sound.unlock();
+        any = true;
+      }
+    });
+    Object.entries(meatSkins).forEach(([id, s]) => {
+      if(!s.unlock.unlocked && conditionMet(s.unlock.condition)){
+        s.unlock.unlocked = true;
+        showUnlock('🍖 Skin de carne desbloqueada', s.name, s.emoji);
+        sound.unlock();
+        any = true;
+      }
+    });
+    Object.entries(mohamedSkins).forEach(([id, s]) => {
+      if(!s.unlock.unlocked && conditionMet(s.unlock.condition)){
+        s.unlock.unlocked = true;
+        showUnlock('🧑 Skin de Mohamed desbloqueada', s.name, s.emoji);
+        sound.unlock();
+        any = true;
+      }
+    });
+    return any;
+  }
+
+  function showUnlock(title, desc, emoji){
+    const toast = document.getElementById('unlockToast');
+    document.getElementById('unlockEmoji').textContent = emoji;
+    document.getElementById('unlockTitle').textContent = title;
+    document.getElementById('unlockDesc').textContent = desc;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3200);
+  }
+
+  // ---------- Tutorial ----------
+  const tutorialSteps = [
+    {emoji:'🥙', title:'¡Bienvenido al Döner Kebab Mohamed!', text:'Soy Mohamed y te voy a enseñar a montar el mejor puesto de kebabs. ¡Es muy fácil!'},
+    {emoji:'🔪', title:'Corta el döner', text:'Toca el rollo de carne para cortar. Cada corte consume ingredientes y vende un kebab. Cuanto más juegues, más recetas desbloquearás.'},
+    {emoji:'🥬', title:'Compra ingredientes', text:'Ve a la pestaña "Ingredientes" y compra stock. Si te quedas sin algo, no podrás servir. Los ingredientes premium se desbloquean con el dinero.'},
+    {emoji:'🧍', title:'Atiende a los clientes', text:'Los clientes piden recetas específicas. Si les sirves rápido, ganarás propina y reputación. Si se enfadan, pierdes reputación.'},
+    {emoji:'⚡', title:'Mejora el puesto', text:'En "Mejoras" podrás comprar cuchillos, asadores, ayudantes... Algunas mejoras se desbloquean progresivamente.'},
+    {emoji:'🎨', title:'Personaliza', text:'Desbloquea skins para el rollo de carne y para Mohamed. Cada skin tiene su propio requisito.'},
+    {emoji:'🏆', title:'¡A cortar!', text:'Completa logros, desbloquea todo y convierte este puesto en un imperio del kebab. ¡Mucha suerte!'},
+  ];
+  let tutorialStep = 0;
+
+  function showTutorial(){
+    document.getElementById('tutorialOverlay').style.display = 'flex';
+    renderTutorial();
+  }
+
+  function renderTutorial(){
+    const step = tutorialSteps[tutorialStep];
+    document.getElementById('tutorialEmoji').textContent = step.emoji;
+    document.getElementById('tutorialTitle').textContent = step.title;
+    document.getElementById('tutorialText').textContent = step.text;
+    document.getElementById('tutorialPrev').style.visibility = tutorialStep === 0 ? 'hidden' : 'visible';
+    document.getElementById('tutorialNext').textContent = tutorialStep === tutorialSteps.length - 1 ? '¡Empezar!' : 'Siguiente';
+    document.getElementById('tutorialDots').innerHTML = tutorialSteps.map((_, i) =>
+      `<span class="dot ${i === tutorialStep ? 'active' : ''}"></span>`
+    ).join('');
+  }
+
+  function nextTutorial(){
+    if(tutorialStep < tutorialSteps.length - 1){
+      tutorialStep++;
+      renderTutorial();
+    } else {
+      closeTutorial();
+    }
+  }
+
+  function prevTutorial(){
+    if(tutorialStep > 0){
+      tutorialStep--;
+      renderTutorial();
+    }
+  }
+
+  function closeTutorial(){
+    document.getElementById('tutorialOverlay').style.display = 'none';
+    startAudio();
+  }
+
+  // ---------- Elementos del DOM ----------
+  const moneyEl = document.getElementById('money');
+  const clickValueEl = document.getElementById('clickValue');
+  const perSecondEl = document.getElementById('perSecond');
+  const soldEl = document.getElementById('sold');
+  const reputationEl = document.getElementById('reputation');
+  const dayEl = document.getElementById('day');
+  const speechEl = document.getElementById('speech');
+  const donerArea = document.getElementById('donerArea');
+  const mohamedArea = document.getElementById('mohamedArea');
+  const spit = document.getElementById('spit');
+  const knife = document.getElementById('knife');
+  const avatar = document.getElementById('avatar');
+  const orderPanel = document.getElementById('orderPanel');
+  const ingredientsGrid = document.getElementById('ingredientsGrid');
+  const recipesGrid = document.getElementById('recipesGrid');
+  const recipePreview = document.getElementById('recipePreview');
+  const upgradesGrid = document.getElementById('upgradesGrid');
+  const meatSkinsGrid = document.getElementById('meatSkinsGrid');
+  const mohamedSkinsGrid = document.getElementById('mohamedSkinsGrid');
+  const achievementsList = document.getElementById('achievementsList');
+  const ordersList = document.getElementById('ordersList');
+  const resetBtn = document.getElementById('resetBtn');
+  const musicToggle = document.getElementById('musicToggle');
+  const sfxToggle = document.getElementById('sfxToggle');
+  const tabs = document.querySelectorAll('.tab');
+  const panels = {
+    ingredients: document.getElementById('panel-ingredients'),
+    recipes: document.getElementById('panel-recipes'),
+    upgrades: document.getElementById('panel-upgrades'),
+    skins: document.getElementById('panel-skins'),
+    achievements: document.getElementById('panel-achievements'),
+  };
+
+  // ---------- Acciones ----------
+  function cutKebab(e){
+    startAudio();
+    const rect = spit.getBoundingClientRect();
+    const x = (e && typeof e.clientX === 'number' && e.clientX !== 0) ? e.clientX : rect.left + rect.width / 2;
+    const y = (e && typeof e.clientY === 'number' && e.clientY !== 0) ? e.clientY : rect.top + rect.height / 2;
+
+    const r = getRecipe(selectedRecipe);
+    if(!r.unlock.unlocked){
+      sound.error();
+      showQuip('¡La receta ' + r.name + ' aún está bloqueada!');
+      return;
+    }
+    if(!canMakeRecipe(r)){
+      sound.error();
+      donerArea.classList.add('shake');
+      setTimeout(() => donerArea.classList.remove('shake'), 350);
+      showQuip('¡No hay ingredientes para ' + r.name + '! Compra en el almacén.');
+      return;
+    }
+
+    consume(r.required);
+    const base = recipeValue(r);
+    const clickBonus = getClickValue();
+    const total = Math.round((base + clickBonus) * 100) / 100;
+
+    money += total;
+    totalSold += 1;
+    reputation += (0.5 * getRepMultiplier());
+
+    sound.cut();
+    spit.classList.add('bounce');
+    setTimeout(() => spit.classList.remove('bounce'), 350);
+
+    spawnFloatingText(x, y, '+' + formatMoney(total));
+    spawnParticles(x, y);
+    triggerKnife();
+    if(Math.random() < 0.18) showRandomQuip();
+    checkUnlocks();
+    checkAchievements();
+    render();
+  }
+
+  function buyIngredient(id){
+    startAudio();
+    const ing = getIng(id);
+    if(!ing.unlocked){
+      if(money >= ing.unlockCost){
+        money -= ing.unlockCost;
+        ing.unlocked = true;
+        ing.stock = 10;
+        sound.buy();
+        showUnlock('🔓 Ingrediente desbloqueado', ing.name, ing.emoji);
+        showQuip('¡' + ing.name + ' desbloqueado en el almacén!');
+      } else {
+        sound.error();
+        showQuip('Necesitas ' + formatMoney(ing.unlockCost) + ' para desbloquear ' + ing.name);
+      }
+      render();
+      return;
+    }
+    const cost = Math.round(ing.price * 10 * 100) / 100;
+    if(money >= cost){
+      money -= cost;
+      ing.stock += 10;
+      sound.buy();
+      showQuip('Comprado: 10x ' + ing.name);
+      render();
+    } else {
+      sound.error();
+    }
+  }
+
+  function selectRecipe(id){
+    startAudio();
+    const r = getRecipe(id);
+    if(!r.unlock.unlocked){
+      sound.error();
+      showQuip('¡' + r.name + ' está bloqueado! Sigue jugando para desbloquearlo.');
+      return;
+    }
+    selectedRecipe = id;
+    sound.buy();
+    showQuip('Receta activa: ' + r.name);
+    render();
+  }
+
+  function buyUpgrade(id){
+    startAudio();
+    const u = upgrades.find(x => x.id === id);
+    if(!u) return;
+    if(!u.unlock.unlocked){
+      sound.error();
+      showQuip('¡' + u.name + ' aún está bloqueado!');
+      return;
+    }
+    const cost = getCost(u);
+    if(money >= cost){
+      money -= cost;
+      u.owned += 1;
+      sound.buy();
+      showQuip('¡' + u.name + ' mejorado!');
+      render();
+    } else {
+      sound.error();
+    }
+  }
+
+  function resetGame(){
+    startAudio();
+    if(!confirm('¿Reiniciar partida? Perderás todo tu progreso.')) return;
+    money = 0; totalSold = 0; reputation = 0; day = 1; dayTimer = 0; selectedRecipe = 'classic';
+    orders = [];
+    ingredients.forEach(i => { i.unlocked = i.id === 'cordero' || i.id === 'pollo' || i.id === 'pan_pita' || ['tomate','cebolla','lechuga','col','pepino','salsa_yogur','salsa_picante','salsa_ajo'].includes(i.id); i.stock = i.unlocked ? (['pan_pita'].includes(i.id)?25:['tomate','cebolla','lechuga','col'].includes(i.id)?20:['pepino'].includes(i.id)?10:['cordero','pollo'].includes(i.id)?15:10) : 0; });
+    upgrades.forEach(u => { u.owned = 0; u.unlock.unlocked = u.unlock.condition === 'Disponible desde el inicio'; });
+    recipes.forEach(r => { r.unlock.unlocked = r.unlock.condition === 'Disponible desde el inicio'; });
+    Object.values(meatSkins).forEach(s => { s.unlock.unlocked = s.unlock.condition === 'Disponible desde el inicio'; });
+    Object.values(mohamedSkins).forEach(s => { s.unlock.unlocked = s.unlock.condition === 'Disponible desde el inicio'; });
+    achievements.forEach(a => a.unlocked = false);
+    applyMeatSkin('classic');
+    applyMohamedSkin('classic');
+    sound.error();
+    showQuip('Empezamos de nuevo, ¡a cortar!');
+    render();
+  }
+
+  // ---------- Animaciones ----------
+  function spawnFloatingText(clientX, clientY, text){
+    const rect = donerArea.getBoundingClientRect();
+    const span = document.createElement('span');
+    span.className = 'float-text';
+    span.textContent = text;
+    span.style.left = (clientX - rect.left) + 'px';
+    span.style.top = (clientY - rect.top) + 'px';
+    donerArea.appendChild(span);
+    setTimeout(() => span.remove(), 900);
+  }
+  function spawnParticles(clientX, clientY){
+    const rect = donerArea.getBoundingClientRect();
+    for(let i = 0; i < 8; i++){
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const dx = (Math.random() - 0.5) * 80;
+      const dy = 30 + Math.random() * 50;
+      const rot = (Math.random() * 360) + 'deg';
+      p.style.setProperty('--dx', dx + 'px');
+      p.style.setProperty('--rot', rot);
+      p.style.left = (clientX - rect.left) + 'px';
+      p.style.top = (clientY - rect.top) + 'px';
+      p.style.width = (4 + Math.random() * 6) + 'px';
+      p.style.height = p.style.width;
+      p.style.background = Math.random() > 0.5 ? 'var(--meat-3)' : 'var(--meat-1)';
+      p.style.animation = `particleFall ${0.5 + Math.random() * 0.4}s ease-in forwards`;
+      donerArea.appendChild(p);
+      setTimeout(() => p.remove(), 900);
+    }
+  }
+  function triggerKnife(){
+    knife.classList.remove('slice');
+    requestAnimationFrame(() => knife.classList.add('slice'));
+    setTimeout(() => knife.classList.remove('slice'), 300);
+  }
+  function showQuip(text){
+    speechEl.textContent = text;
+    speechEl.classList.remove('pulse');
+    requestAnimationFrame(() => speechEl.classList.add('pulse'));
+  }
+  function showRandomQuip(){
+    const quips = [
+      "¿Con todo? ¡Con todo!",
+      "El secreto está en la salsa...",
+      "¡Corta, corta, no pares!",
+      "Aquí nadie sale con hambre.",
+      "Pan calentito, recién hecho.",
+      "¿Picante o no picante? Esa es la cuestión.",
+      "Mi abuelo me enseñó esta receta.",
+      "Cebolla sí, cebolla siempre.",
+      "Este döner se hace con cariño.",
+      "Más rápido que cualquier otro puesto de la calle.",
+      "¡La col bien crujiente es la clave!",
+      "El cordero lleva 24 horas marinándose."
+    ];
+    showQuip(quips[Math.floor(Math.random() * quips.length)]);
+  }
+
+  // ---------- Render ----------
+  function renderIngredients(){
+    ingredientsGrid.innerHTML = ingredients.map(ing => {
+      if(!ing.unlocked){
+        const affordable = money >= ing.unlockCost;
+        return `<div class="card locked">
+          <div class="icon">🔒</div>
+          <div class="name">${ing.name} ${ing.emoji}</div>
+          <div class="desc">Ingrediente premium</div>
+          <div class="locked-tag">Desbloquear por ${formatMoney(ing.unlockCost)}</div>
+          <button data-ing="${ing.id}" ${affordable ? '' : 'disabled'}>Desbloquear</button>
+        </div>`;
+      }
+      const cost = Math.round(ing.price * 10 * 100) / 100;
+      const affordable = money >= cost;
+      const low = ing.stock <= 3;
+      return `<div class="card">
+        <div class="icon">${ing.emoji}</div>
+        <div class="name">${ing.name}</div>
+        <div class="desc">${formatMoney(ing.price)} / unidad</div>
+        <div class="stock ${low ? 'low' : ''}">Stock: ${ing.stock}</div>
+        <button data-ing="${ing.id}" ${affordable ? '' : 'disabled'}>Comprar 10x (${formatMoney(cost)})</button>
+      </div>`;
+    }).join('');
+  }
+
+  function renderRecipes(){
+    const r = getRecipe(selectedRecipe);
+    const missing = r.required.filter(id => getIng(id).stock <= 0);
+    recipePreview.innerHTML = `
+      <strong>Receta activa: ${r.emoji} ${r.name}</strong><br>
+      ${r.desc}<br>
+      Valor base: ${formatMoney(r.price)} · Multiplicador: x${globalMultiplier.toFixed(2)}<br>
+      Ingredientes: ${r.required.map(id => getIng(id).emoji + ' ' + getIng(id).name).join(', ')}<br>
+      ${missing.length ? '<span style="color:var(--neon-pink)">Faltan: ' + missing.map(id => getIng(id).name).join(', ') + '</span>' : '<span style="color:var(--green-fresh)">¡Ingredientes listos!</span>'}
+    `;
+
+    recipesGrid.innerHTML = recipes.map(r => {
+      const selected = r.id === selectedRecipe;
+      const locked = !r.unlock.unlocked;
+      if(locked){
+        return `<div class="card locked">
+          <div class="icon">🔒</div>
+          <div class="name">${r.emoji} ${r.name}</div>
+          <div class="desc">${r.desc}</div>
+          <div class="unlock-condition">Desbloqueo: ${r.unlock.condition}</div>
+          <button disabled>Bloqueado</button>
+        </div>`;
+      }
+      return `<div class="card">
+        <div class="icon">${r.emoji}</div>
+        <div class="name">${r.name}</div>
+        <div class="desc">${r.desc}</div>
+        <div class="desc">${formatMoney(recipeValue(r))} · ${r.required.length} ingredientes</div>
+        <button data-recipe="${r.id}" class="${selected ? 'selected' : ''}">${selected ? 'Seleccionada' : 'Elegir'}</button>
+      </div>`;
+    }).join('');
+  }
+
+  function renderUpgrades(){
+    upgradesGrid.innerHTML = upgrades.map(u => {
+      const cost = getCost(u);
+      const affordable = money >= cost;
+      const locked = !u.unlock.unlocked;
+      if(locked){
+        return `<div class="card locked">
+          <div class="icon">🔒</div>
+          <div class="name">${u.icon} ${u.name}</div>
+          <div class="desc">${u.desc}</div>
+          <div class="unlock-condition">Desbloqueo: ${u.unlock.condition}</div>
+          <button disabled>Bloqueado</button>
+        </div>`;
+      }
+      return `<div class="card">
+        <div class="icon">${u.icon}</div>
+        <div class="name">${u.name}</div>
+        <div class="desc">${u.desc}</div>
+        <div class="stock">Nivel: ${u.owned}</div>
+        <button data-upgrade="${u.id}" ${affordable ? '' : 'disabled'}>Comprar — ${formatMoney(cost)}</button>
+      </div>`;
+    }).join('');
+  }
+
+  function renderSkins(){
+    meatSkinsGrid.innerHTML = Object.entries(meatSkins).map(([id, s]) => {
+      const selected = id === currentMeatSkin;
+      const locked = !s.unlock.unlocked;
+      const gradient = `linear-gradient(135deg, ${s.colors[0]}, ${s.colors[2]})`;
+      if(locked){
+        return `<div class="card locked">
+          <div class="skin-preview meat" style="background:${gradient};filter:grayscale(1);"></div>
+          <div class="icon" style="text-align:center;">🔒</div>
+          <div class="name" style="text-align:center;">${s.name}</div>
+          <div class="unlock-condition" style="text-align:center;">${s.unlock.condition}</div>
+          <button disabled>Bloqueado</button>
+        </div>`;
+      }
+      return `<div class="card">
+        <div class="skin-preview meat" style="background:${gradient};"></div>
+        <div class="icon" style="text-align:center;">${s.emoji}</div>
+        <div class="name" style="text-align:center;">${s.name}</div>
+        <button data-meat-skin="${id}" class="${selected ? 'selected' : ''}">${selected ? 'Activo' : 'Equipar'}</button>
+      </div>`;
+    }).join('');
+
+    mohamedSkinsGrid.innerHTML = Object.entries(mohamedSkins).map(([id, s]) => {
+      const selected = id === currentMohamedSkin;
+      const locked = !s.unlock.unlocked;
+      if(locked){
+        return `<div class="card locked">
+          <div class="skin-preview" style="background:#3a2a1c;border:6px solid #5a4a38;"></div>
+          <div class="icon" style="text-align:center;">🔒</div>
+          <div class="name" style="text-align:center;">${s.name}</div>
+          <div class="unlock-condition" style="text-align:center;">${s.unlock.condition}</div>
+          <button disabled>Bloqueado</button>
+        </div>`;
+      }
+      return `<div class="card">
+        <div class="skin-preview" style="background:${s.skin};border:6px solid ${s.apron};"></div>
+        <div class="icon" style="text-align:center;">${s.emoji}</div>
+        <div class="name" style="text-align:center;">${s.name}</div>
+        <button data-mohamed-skin="${id}" class="${selected ? 'selected' : ''}">${selected ? 'Activo' : 'Equipar'}</button>
+      </div>`;
+    }).join('');
+  }
+
+  function renderAchievements(){
+    achievementsList.innerHTML = achievements.map(a => `
+      <div class="badge ${a.unlocked ? 'unlocked' : ''}">
+        ${a.unlocked ? '✅' : '🔒'} ${a.name}
+      </div>
+    `).join('');
+  }
+
+  function renderOrders(){
+    if(orders.length === 0){
+      ordersList.innerHTML = '<p style="text-align:center;font-size:0.75rem;opacity:0.6;">Sin pedidos. Espera clientes...</p>';
+      return;
+    }
+    ordersList.innerHTML = orders.map(o => {
+      const r = getRecipe(o.recipeId);
+      const ready = canMakeRecipe(r);
+      const pct = Math.max(0, (o.timer / o.maxTimer) * 100);
+      const urgent = o.timer <= 8;
+      return `<div class="customer-card ${o.newOrder ? 'new' : ''} ${urgent ? 'urgent' : ''}">
+        <div class="customer-name">${o.name} dice: "${o.comment}"</div>
+        <div class="customer-order">Pide: ${r.emoji} ${r.name}</div>
+        <div class="customer-timer">Paciencia: ${Math.ceil(o.timer)}s</div>
+        <div style="background:#4a2c14;height:4px;border-radius:2px;margin:4px 0 8px;"><div style="width:${pct}%;height:100%;background:${pct>50?'var(--green-fresh)':'var(--neon-pink)'};border-radius:2px;transition:width 0.3s;"></div></div>
+        <button class="serve-btn" data-order="${o.id}" ${ready ? '' : 'disabled'}>${ready ? 'Servir (' + formatMoney(recipeValue(r)*1.3) + ')' : 'Faltan ingredientes'}</button>
+      </div>`;
+    }).join('');
+  }
+
+  function checkAchievements(){
+    let changed = false;
+    achievements.forEach(a => {
+      if(!a.unlocked && a.condition()){
+        a.unlocked = true;
+        changed = true;
+        sound.achievement();
+        mohamedArea.classList.add('glow-pulse');
+        setTimeout(() => mohamedArea.classList.remove('glow-pulse'), 1200);
+        showQuip('🏆 Logro desbloqueado: ' + a.name);
+      }
+    });
+    return changed;
+  }
+
+  function render(){
+    moneyEl.textContent = formatMoney(money);
+    clickValueEl.textContent = '+' + formatMoney(getClickValue());
+    perSecondEl.textContent = '+' + formatMoney(getPerSecond()) + '/s';
+    soldEl.textContent = totalSold.toLocaleString('es-ES');
+    reputationEl.textContent = '⭐ ' + Math.floor(reputation);
+    dayEl.textContent = day;
+
+    let mult = 1;
+    upgrades.forEach(u => { if(u.type === 'mult') mult *= Math.pow(u.amount, u.owned); });
+    globalMultiplier = mult;
+
+    renderIngredients();
+    renderRecipes();
+    renderUpgrades();
+    renderSkins();
+    renderAchievements();
+    renderOrders();
+  }
+
+  // ---------- Eventos ----------
+  spit.addEventListener('click', cutKebab);
+  spit.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      cutKebab(null);
+    }
+  });
+
+  ingredientsGrid.addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-ing]');
+    if(!btn) return;
+    buyIngredient(btn.dataset.ing);
+  });
+
+  recipesGrid.addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-recipe]');
+    if(!btn) return;
+    selectRecipe(btn.dataset.recipe);
+  });
+
+  upgradesGrid.addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-upgrade]');
+    if(!btn) return;
+    buyUpgrade(btn.dataset.upgrade);
+  });
+
+  meatSkinsGrid.addEventListener('click', (e) => {
+    startAudio();
+    const btn = e.target.closest('button[data-meat-skin]');
+    if(!btn) return;
+    applyMeatSkin(btn.dataset.meatSkin);
+    sound.buy();
+    showQuip('¡Nuevo look para el rollo de carne!');
+    render();
+  });
+
+  mohamedSkinsGrid.addEventListener('click', (e) => {
+    startAudio();
+    const btn = e.target.closest('button[data-mohamed-skin]');
+    if(!btn) return;
+    applyMohamedSkin(btn.dataset.mohamedSkin);
+    sound.buy();
+    avatar.classList.add('pop');
+    setTimeout(() => avatar.classList.remove('pop'), 300);
+    showQuip('¡Mohamed se ha cambiado de ropa!');
+    render();
+  });
+
+  ordersList.addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-order]');
+    if(!btn) return;
+    serveOrder(parseFloat(btn.dataset.order));
+  });
+
+  resetBtn.addEventListener('click', resetGame);
+
+  musicToggle.addEventListener('click', () => {
+    startAudio();
+    const on = sound.toggleMusic();
+    musicToggle.textContent = on ? '🎵 Música ON' : '🎵 Música OFF';
+    musicToggle.classList.toggle('muted', !on);
+  });
+
+  sfxToggle.addEventListener('click', () => {
+    startAudio();
+    const on = sound.toggleSfx();
+    sfxToggle.textContent = on ? '🔊 Sonido ON' : '🔊 Sonido OFF';
+    sfxToggle.classList.toggle('muted', !on);
+  });
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      Object.values(panels).forEach(p => p.style.display = 'none');
+      panels[tab.dataset.tab].style.display = 'block';
+    });
+  });
+
+  document.getElementById('tutorialNext').addEventListener('click', nextTutorial);
+  document.getElementById('tutorialPrev').addEventListener('click', prevTutorial);
+  document.getElementById('tutorialSkip').addEventListener('click', closeTutorial);
+
+  // ---------- Bucles del juego ----------
+  let orderAcc = 0;
+  setInterval(() => {
+    const ps = getPerSecond();
+    if(ps > 0){
+      money += ps;
+      totalSold += Math.max(1, Math.round(ps / Math.max(1, getClickValue())));
+      reputation += (0.05 * getRepMultiplier());
+    }
+
+    dayTimer += 1;
+    if(dayTimer >= 120){
+      dayTimer = 0;
+      day++;
+      showQuip('¡Día ' + day + ' en el puesto! Nuevos clientes llegan.');
+    }
+
+    orderAcc += 1;
+    if(orderAcc >= getOrderInterval()){
+      orderAcc = 0;
+      addOrder();
+    }
+
+    orders.forEach(o => {
+      o.timer -= 1;
+      if(o.timer <= 0){
+        reputation = Math.max(0, reputation - 2);
+      }
+    });
+    orders = orders.filter(o => o.timer > 0);
+
+    checkUnlocks();
+    checkAchievements();
+    render();
+  }, 1000);
+
+  setInterval(() => {
+    if(Math.random() < 0.5) showRandomQuip();
+  }, 6000);
+
+  // ---------- Inicio ----------
+  applyMeatSkin('classic');
+  applyMohamedSkin('classic');
+  render();
+  showTutorial();
+</script>
+</body>
+</html>
